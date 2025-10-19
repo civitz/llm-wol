@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backend Status</title>
+</head>
+<body>
+    <h1>Backend Service is {{status}}</h1>
+    {% if status == "Down" %}
+    <p>The backend service is currently not reachable.</p>
+    <form method="post" action="/start">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Start Backend</button>
+    </form>
+    {% else %}
+    Please find the service at this url: <a href="{{service_link}}">{{service_link}}</a>
+    {% endif %}
+</body>
+</html>

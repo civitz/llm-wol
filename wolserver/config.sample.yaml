@@ -1,0 +1,20 @@
+
+backend:
+  host: "the host of the service"
+  username: "theusername"
+  password: ""
+  verifyUrl: "http://call-me-please.local/openendpoint"
+script:
+  # these are remote scripts
+  prepare: "prepare.sh"
+  start: "start.sh"
+  stop: "stop.sh"
+service:
+  # these are configuration of the wolserver service
+  # use generatepwdandsalt.py to calculate these
+  password: "<base64 of the salted password>"
+  salt: "<base64 of salt>"
+  port: 5000
+  link: "http://call-me-please.local/"
+
+
