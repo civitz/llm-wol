@@ -26,9 +26,9 @@ def verify_password(input_password, stored_hash, salt):
     # Decode the base64 salt
     salt_bytes = base64.b64decode(salt)
     
-    # Create the hash using the same method as when the password was stored
+    # Create the hash using PBKDF2 with 600000 iterations
     password_bytes = input_password.encode('utf-8')
-    hashed = hashlib.sha256(password_bytes + salt_bytes).digest()
+    hashed = hashlib.pbkdf2_hmac('sha256', password_bytes, salt_bytes, 600000)
     
     # Encode the result as base64 for comparison
     hashed_b64 = base64.b64encode(hashed).decode('utf-8')

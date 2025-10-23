@@ -10,7 +10,7 @@ def hash_password(password, salt):
     """Hash password with salt using SHA256"""
     salt_bytes = base64.b64decode(salt)
     password_bytes = password.encode('utf-8')
-    hashed = hashlib.sha256(password_bytes + salt_bytes).digest()
+    hashed = hashlib.pbkdf2_hmac('sha256', password_bytes, salt_bytes, 600000)
     return base64.b64encode(hashed).decode('utf-8')
 
 # Ask for password from CLI
