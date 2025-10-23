@@ -13,7 +13,7 @@ with open('config.yaml', 'r') as file:
 
 BACKEND_HOST = config['backend']['host']
 BACKEND_URL_VERIFY = config['backend']['verifyUrl']
-PREPARE_SCRIPT = config['script']['prepare']
+SHUTDOWN_SCRIPT = config['script']['shutdown']
 START_SCRIPT = config['script']['start']
 STOP_SCRIPT = config['script']['stop']
 PASSWORD = config['backend']['password']
@@ -58,6 +58,8 @@ def render_status_page(status):
     app.logger.info("rendering statuspage")
     return render_template("status.html", status=status, service_link=SERVICE_LINK)
 
+
+
 @app.route('/start', methods=['POST'])
 def start_backend():
     app.logger.info("start backend?")
@@ -70,8 +72,6 @@ def start_backend():
     try:
         # Run the start script
         subprocess.run([START_SCRIPT], check=True)
-        # Give it a moment to start
-        time.sleep(2)
 
         # Redirect to main page
         return render_template("start.html", success=True, service_link=SERVICE_LINK), 200

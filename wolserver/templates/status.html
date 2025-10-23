@@ -14,6 +14,17 @@
     </form>
     {% else %}
     Please find the service at this url: <a href="{{service_link}}">{{service_link}}</a>
+    
+    <h2>Stop Service</h2>
+    <form action="/stop" method="post">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br/>
+        <label for="shutdown">Also shutdown server:</label>
+        <input type="checkbox" name="shutdown" >
+        <br/>
+        <button type="submit">Stop Service</button>
+    </form>
     {% endif %}
 </body>
 </html>

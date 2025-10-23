@@ -5,9 +5,13 @@ backend:
   password: ""
   verifyUrl: "http://call-me-please.local/openendpoint"
 script:
-  # these are remote scripts
-  prepare: "prepare.sh"
+  # these are scripts local to the "wolserver" machine
+
+  # this is to shutdown the WOLed machine
+  shutdown: "shutdown.sh"
+  # this is to start the WOLed machine and it services
   start: "start.sh"
+  # this is to stop the WOLed machine's services
   stop: "stop.sh"
 service:
   # these are configuration of the wolserver service

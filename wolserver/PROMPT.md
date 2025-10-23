@@ -21,3 +21,7 @@ change this proxy function to one that:
 - displays the current status of the backend using the same method as before
 
 - offers an option to start the service only if the service is down
+
+---------------
+use PBKDF2  with 600000 iterations instead of sha256 + salt
+
