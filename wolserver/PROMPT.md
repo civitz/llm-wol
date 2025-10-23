@@ -47,9 +47,12 @@ implement the /stop POST call as follows:
 
 ---------------
 have a look at   and create a template for the "stop" page.
-
 The "stop" page should tell something about the "stop" method in  
 
-
-
 Assume we will have a "success" variable , a service_link variable, and an "error_message" variable.
+---------------
+# check if <ip> is up (use ping -c 1)
+# if not up, launch wake on lan with wakeonlan <macaddress>
+# once online, ssh into deck@ip and run ~/llm-wol/steamdeck/start-llm.sh
+
+implement the commented area
