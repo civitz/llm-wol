@@ -25,3 +25,31 @@ change this proxy function to one that:
 ---------------
 use PBKDF2  with 600000 iterations instead of sha256 + salt
 
+---------------
+given that the page has the following form:
+
+```html
+<form action="/stop" method="post">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br/>
+        <label for="shutdown">Also shutdown server:</label>
+        <input type="checkbox" name="shutdown" >
+        <br/>
+        <button type="submit">Stop Service</button>
+    </form>
+```
+
+implement the /stop POST call as follows:
+- call the "STOP_SCRIPT"
+- if the "shutdown" parameter is checked, also run the "SHUTDOWN_SCRIPT"
+- return 200 on ok, 500 on error
+
+---------------
+have a look at   and create a template for the "stop" page.
+
+The "stop" page should tell something about the "stop" method in  
+
+
+
+Assume we will have a "success" variable , a service_link variable, and an "error_message" variable.

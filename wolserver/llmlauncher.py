@@ -58,7 +58,33 @@ def render_status_page(status):
     app.logger.info("rendering statuspage")
     return render_template("status.html", status=status, service_link=SERVICE_LINK)
 
+@app.route('/stop', methods=['POST'])
+def stop_service():
+    # Get the password and shutdown parameters from the form
+    input_password = request.form.get('password')
+    should_shutdown = request.form.get('shutdown') is not None
 
+    # Verify the password
+    if not verify_password(input_password, SERVICE_PASSWORD, SERVICE_SALT):
+        return render_template("stop.html", success=False, service_link=SERVICE_LINK, error_message="Invalid password")
+
+    try:
+        # Execute the stop script
+        app.logger.info(f"Launching {STOP_SCRIPT}")
+        subprocess.run(STOP_SCRIPT, check=True, shell=True)
+
+        # If shutdown checkbox is checked, also execute the shutdown script
+        if should_shutdown:
+            app.logger.info(f"Launching {SHUTDOWN_SCRIPT}")
+            subprocess.run(SHUTDOWN_SCRIPT, check=True, shell=True)
+
+        return render_template("stop.html", success=True, service_link=SERVICE_LINK, shutdown=should_shutdown)
+    except subprocess.CalledProcessError as e:
+        app.logger.error(f"Error stopping service: {e}")
+        return render_template("stop.html", success=False, service_link=SERVICE_LINK, error_message=f"Error stopping service: {e}")
+    except Exception as e:
+        app.logger.error(f"Unexpected error: {e}")
+        return render_template("stop.html", success=False, service_link=SERVICE_LINK, error_message=f"Unexpected error: {e}")
 
 @app.route('/start', methods=['POST'])
 def start_backend():
